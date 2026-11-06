@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShoppingMaui.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:ShoppingMaui.Models"
+    xmlns:viewmodels="clr-namespace:ShoppingMaui.ViewModels"
+    x:DataType="viewmodels:ShoplistViewModel"
+    BackgroundColor="Black">
+
+    <RefreshView IsRefreshing="{Binding IsLoading, Mode=OneWay}" Command="{Binding LoadCommand}">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Row="0"
+                Padding="20"
+                BackgroundColor="Black"
+                Stroke="Black">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    HorizontalTextAlignment="Center"
+                    Text="Shopping List"
+                    TextColor="Orange" />
+            </Border>
+
+            <Button
+                Grid.Row="1"
+                Margin="10"
+                Padding="15"
+                BackgroundColor="GreenYellow"
+                Command="{Binding CollectSelectedItemCommand}"
+                FontSize="24"
+                IsEnabled="{Binding CanCollectSelectedItem}"
+                Text="Collect selected item"
+                TextColor="Black" />
+
+            <VerticalStackLayout Grid.Row="2">
+                <Label
+                    FontSize="24"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding IsLoading}"
+                    Text="Loading shopping list..."
+                    TextColor="White" />
+                <Label
+                    FontSize="16"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ErrorMessage}"
+                    TextColor="Tomato" />
+            </VerticalStackLayout>
+
+            <CollectionView
+                Grid.Row="3"
+                Margin="20,0"
+                ItemsSource="{Binding Shoplist}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Shoplist">
+                        <Border Margin="0,3" Padding="2" BackgroundColor="White" Stroke="Silver" StrokeShape="RoundRectangle 5">
+                            <HorizontalStackLayout Padding="0,2" BackgroundColor="AliceBlue">
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="22"
+                                    Text="{Binding Item}"
+                                    TextColor="Purple"
+                                    VerticalOptions="Start" />
+                                <Label
+                                    Margin="5,0,0,0"
+                                    FontSize="22"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Amount}"
+                                    TextColor="Purple"
+                                    VerticalOptions="Start" />
+                                <Label
+                                    Margin="5,0,0,0"
+                                    FontSize="22"
+                                    HorizontalOptions="Center"
+                                    Text="Pcs"
+                                    TextColor="Purple"
+                                    VerticalOptions="Start" />
+                            </HorizontalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button
+                Grid.Row="4"
+                Margin="40,10"
+                Padding="20"
+                Command="{Binding OpenAddItemCommand}"
+                FontSize="26"
+                Text="Add new item to the list" />
+
+            <Border
+                Grid.Row="5"
+                Padding="40,20,40,50"
+                BackgroundColor="Black"
+                Stroke="Black"
+                VerticalOptions="End">
+                <VerticalStackLayout>
+                    <Label
+                        FontSize="20"
+                        HorizontalTextAlignment="Center"
+                        Text="Happy shopping!"
+                        TextColor="Orange" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </RefreshView>
+</ContentPage>

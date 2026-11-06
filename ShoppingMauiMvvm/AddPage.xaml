@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShoppingMaui.AddPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:ShoppingMaui.ViewModels"
+    Title="Add item"
+    x:DataType="viewmodels:AddItemViewModel"
+    BackgroundColor="Black">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Padding="20"
+            BackgroundColor="Black"
+            Stroke="Black">
+            <Label
+                FontSize="24"
+                HorizontalTextAlignment="Center"
+                Text="Shopping list - Add item"
+                TextColor="Orange" />
+        </Border>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Entry
+                x:Name="itemEntry"
+                Margin="20,5"
+                BackgroundColor="DarkViolet"
+                FontSize="26"
+                Placeholder="Item name"
+                Text="{Binding NewItemName}"
+                TextColor="Aquamarine" />
+            <Entry
+                x:Name="quantityEntry"
+                Margin="20,5"
+                BackgroundColor="DarkViolet"
+                FontSize="26"
+                Keyboard="Numeric"
+                Placeholder="Quantity"
+                Text="{Binding NewItemQuantity}"
+                TextColor="Aquamarine" />
+            <Label
+                Margin="20,5"
+                Text="{Binding ErrorMessage}"
+                TextColor="Tomato" />
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Color="Orange" />
+            <Button
+                Margin="20,50"
+                Padding="40"
+                Command="{Binding AddItemCommand}"
+                FontSize="26"
+                Text="Add Item" />
+        </VerticalStackLayout>
+
+        <Border
+            Grid.Row="2"
+            Padding="40,20,40,50"
+            BackgroundColor="Black"
+            Stroke="Black"
+            VerticalOptions="End">
+            <Label
+                FontSize="20"
+                HorizontalTextAlignment="Center"
+                Text="Happy shopping!"
+                TextColor="Orange" />
+        </Border>
+    </Grid>
+</ContentPage>
